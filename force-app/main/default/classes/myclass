@@ -1,0 +1,13 @@
+public static void updatePositions(List<Map<String,Object>> listForUpdate) {
+        for (Map<String,Object> obj : listForUpdate) {
+            ID newID = (ID)obj.get('ID');
+            String newValue = (String)obj.get('Status');
+            Position__c posUp = [SELECT Id,Status__c FROM Position__c WHERE Id =:newID];
+            posUp.Status__c = newValue;   
+            try {
+                update posUp;
+            } catch (Exception e) {
+                System.debug('Unable to update a record' + e.getmessage());
+            }     
+        }
+    }
